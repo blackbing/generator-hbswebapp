@@ -220,51 +220,50 @@ AppGenerator.prototype.requirejs = function requirejs() {
     });
 
     // add a basic amd module
-    this.write('app/scripts/app.js', [
-      '/*global define */',
-      'define([], function () {',
-      '    \'use strict\';\n',
-      '    return \'\\\'Allo \\\'Allo!\';',
-      '});'
+    this.write('app/scripts/app.coffee', [
+      '#global define',
+      'define ()-> ',
+      '    \'use strict\'\n',
+      '    return \'\\\'Allo \\\'Allo!\'',
+      ''
     ].join('\n'));
 
     this.mainJsFile = [
-      'require.config({',
-      '    paths: {',
-      (this.includeHBS)? '        hbs: \'../bower_components/hbs/hbs\',': '',
-      (this.includeHBS)?'        handlebars: \'../bower_components/hbs/Handlebars\',': '',
-      (this.includeHBS)?'        i18nprecompile: \'../bower_components/hbs/hbs/i18nprecompile\',': '',
-      (this.includeHBS)?'        json2: \'../bower_components/hbs/hbs/json2\',': '',
-      '        jquery: \'../bower_components/jquery/jquery\',',
-      '        bootstrap: \'vendor/bootstrap\',',
-      '        backbone: \'../bower_components/backbone-amd/backbone\',',
-      '        underscore: \'../bower_components/underscore-amd/underscore\',',
+      'require.config',
+      '    paths:',
+      (this.includeHBS)? '        hbs: \'../bower_components/hbs/hbs\'': '',
+      (this.includeHBS)?'        handlebars: \'../bower_components/hbs/Handlebars\'': '',
+      (this.includeHBS)?'        i18nprecompile: \'../bower_components/hbs/hbs/i18nprecompile\'': '',
+      (this.includeHBS)?'        json2: \'../bower_components/hbs/hbs/json2\'': '',
+      '        jquery: \'../bower_components/jquery/jquery\'',
+      '        bootstrap: \'vendor/bootstrap\'',
+      '        backbone: \'../bower_components/backbone-amd/backbone\'',
+      '        underscore: \'../bower_components/underscore-amd/underscore\'',
       '        text: \'../bower_components/requirejs-text/text\'',
-      '    },',
-      (this.includeHBS)?'    hbs: {':'',
-      (this.includeHBS)?'        disableI18n: true, //This disables the i18n helper and':'',
-      (this.includeHBS)?'                           //doesn\'t require the json i18n files (e.g. en_us.json)':'',
-      (this.includeHBS)?'                           //(false by default)':'',
-      (this.includeHBS)?'        disableHelpers: false, // When true, won\'t look for and try to automatically load':'',
-      (this.includeHBS)?'                               // helpers (false by default)':'',
-      (this.includeHBS)?'        templateExtension: \'hbs\', //Set the extension automatically appended to templates':'',
-      (this.includeHBS)?'                                  // (\'hbs\' by default)':'',
-      (this.includeHBS)?'        compileOptions: {} //options object which is passed to Handlebars compiler':'',
-      (this.includeHBS)?'    },':'',
-      '    shim: {',
-      '        bootstrap: {',
-      '            deps: [\'jquery\'],',
+      '    ',
+      (this.includeHBS)?'    hbs:':'',
+      (this.includeHBS)?'        disableI18n: true #This disables the i18n helper and':'',
+      (this.includeHBS)?'                           #doesn\'t require the json i18n files (e.g. en_us.json)':'',
+      (this.includeHBS)?'                           #(false by default)':'',
+      (this.includeHBS)?'        disableHelpers: false # When true, won\'t look for and try to automatically load':'',
+      (this.includeHBS)?'                               # helpers (false by default)':'',
+      (this.includeHBS)?'        templateExtension: \'hbs\' #Set the extension automatically appended to templates':'',
+      (this.includeHBS)?'                                  # (\'hbs\' by default)':'',
+      (this.includeHBS)?'        compileOptions: {} #options object which is passed to Handlebars compiler':'',
+      '    shim:',
+      '        bootstrap:',
+      '            deps: [\'jquery\']',
       '            exports: \'jquery\'',
-      '        }',
-      '    }',
-      '});',
+      '        ',
+      '    ',
       '',
-      'require([\'app\', \'jquery\', \'bootstrap\'], function (app, $) {',
-      '    \'use strict\';',
-      '    // use app here',
-      '    console.log(app);',
-      '    console.log(\'Running jQuery %s\', $().jquery);',
-      '});'
+      '',
+      'require([\'app\', \'jquery\', \'bootstrap\'], (app, $)->',
+      '    \'use strict\'',
+      '    # use app here',
+      '    console.log(app)',
+      '    console.log(\'Running jQuery %s\', $().jquery)',
+      ')'
     ].join('\n');
   }
 };
@@ -275,6 +274,6 @@ AppGenerator.prototype.app = function app() {
   this.mkdir('app/styles');
   this.mkdir('app/images');
   this.write('app/index.html', this.indexFile);
-  this.write('app/scripts/main.js', this.mainJsFile);
+  this.write('app/scripts/main.coffee', this.mainJsFile);
   this.write('app/scripts/hello.coffee', this.mainCoffeeFile);
 };
