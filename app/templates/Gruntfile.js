@@ -1,7 +1,6 @@
 // Generated on <%= (new Date).toISOString().split('T')[0] %> using <%= pkg.name %> <%= pkg.version %>
 'use strict';
-var LIVERELOAD_PORT = 35729;
-var lrSnippet = require('connect-livereload')({port: LIVERELOAD_PORT});
+var lrSnippet = require("grunt-contrib-livereload/lib/utils").livereloadSnippet
 var mountFolder = function (connect, dir) {
     return connect.static(require('path').resolve(dir));
 };
@@ -41,9 +40,6 @@ module.exports = function (grunt) {
                 tasks: ['compass:server']
             },
             livereload: {
-                options: {
-                    livereload: LIVERELOAD_PORT
-                },
                 files: [
                     '<%%= yeoman.app %>/*.html',
                     '{.tmp,<%%= yeoman.app %>}/styles/{,*/}*.css',

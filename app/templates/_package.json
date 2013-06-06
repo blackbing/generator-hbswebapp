@@ -17,6 +17,7 @@
     "grunt-bower-requirejs": "~0.4.1",
     "grunt-contrib-requirejs": "~0.4.0",<% } %>
     "grunt-contrib-imagemin": "~0.1.3",
+    "grunt-contrib-livereload": "0.1.2",
     "grunt-contrib-watch": "~0.4.0",<% if (testFramework === 'jasmine') { %>
     "grunt-contrib-jasmine": "~0.4.2",<% } %>
     "grunt-rev": "~0.1.0",
@@ -26,8 +27,7 @@
     "grunt-svgmin": "~0.1.0",
     "grunt-concurrent": "~0.1.0",
     "matchdep": "~0.1.2",
-    "grunt-symlink": "~0.4.0",
-    "connect-livereload": "~0.1.4"
+    "grunt-symlink": "~0.4.0"
   },
   "engines": {
     "node": ">=0.8.0"
