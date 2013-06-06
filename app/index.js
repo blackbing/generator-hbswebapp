@@ -247,7 +247,7 @@ AppGenerator.prototype.requirejs = function requirejs() {
       (this.includeHBS)?'                           //(false by default)':'',
       (this.includeHBS)?'        disableHelpers: false, // When true, won\'t look for and try to automatically load':'',
       (this.includeHBS)?'                               // helpers (false by default)':'',
-      (this.includeHBS)?'        templateExtension: "hbs", //Set the extension automatically appended to templates':'',
+      (this.includeHBS)?'        templateExtension: \'hbs\', //Set the extension automatically appended to templates':'',
       (this.includeHBS)?'                                  // (\'hbs\' by default)':'',
       (this.includeHBS)?'        compileOptions: {} //options object which is passed to Handlebars compiler':'',
       (this.includeHBS)?'    },':'',
