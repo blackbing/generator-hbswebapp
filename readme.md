@@ -1,3 +1,19 @@
+#hbswebapp
+
+it is forked from [yeomap/generator-webapp](https://github.com/yeoman/generator-webapp) which is a fastest generator to generate a website.
+
+* [hbs plugin](https://github.com/SlexAxton/require-handlebars-plugin)
+* [backbone](https://github.com/documentcloud/backbone)
+* [underscore](https://github.com/documentcloud/underscore)
+* [require text plugin](https://github.com/requirejs/text)
+
+# Usage
+
+    git clone git@github.com:blackbing/generator-hbswebapp.git
+    npm link
+    cd {Your Project}
+    yo hbswebapp
+
 # Web app generator [![Build Status](https://secure.travis-ci.org/yeoman/generator-webapp.png?branch=master)](http://travis-ci.org/yeoman/generator-webapp)
 
 Yeoman generator for scaffolding out a front-end web app.
