@@ -20,7 +20,7 @@ module.exports = function (grunt) {
     var yeomanConfig = {
         app: 'app',
         dist: 'dist',
-        tmp: ".tmp"
+        tmp: '.tmp'
     };
     grunt.initConfig({
         yeoman: yeomanConfig,
@@ -52,8 +52,8 @@ module.exports = function (grunt) {
                 ]
             }<% if (includeHBS) { %>,
             handlebars: {
-                files: ["<%%= yeoman.app %>/scripts/templates/*.hbs"],
-                tasks: ["livereload"]
+                files: ['<%%= yeoman.app %>/scripts/templates/*.hbs'],
+                tasks: ['livereload']
             }<% } %>
         },
         connect: {
@@ -312,7 +312,7 @@ module.exports = function (grunt) {
                     dot: true,
                     cwd: '<%%= yeoman.app %>',
                     dest: '<%%= yeoman.tmp %>',
-                    src: ["scripts/**"]
+                    src: ['scripts/**']
                 }]
             }
         },
@@ -375,7 +375,7 @@ module.exports = function (grunt) {
         'clean:dist',
         'useminPrepare',
         'concurrent:dist',
-        "symlink",<% if (includeRequireJS) { %>
+        'symlink',<% if (includeRequireJS) { %>
         'requirejs',<% } %>
         'cssmin',
         'concat',
