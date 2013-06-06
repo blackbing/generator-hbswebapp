@@ -19,9 +19,9 @@ module.exports = function (grunt) {
     // configurable paths
     var yeomanConfig = {
         app: 'app',
-        dist: 'dist'
+        dist: 'dist',
+        tmp: ".tmp"
     };
-
     grunt.initConfig({
         yeoman: yeomanConfig,
         watch: {
@@ -50,7 +50,11 @@ module.exports = function (grunt) {
                     '{.tmp,<%%= yeoman.app %>}/scripts/{,*/}*.js',
                     '<%%= yeoman.app %>/images/{,*/}*.{png,jpg,jpeg,gif,webp,svg}'
                 ]
-            }
+            }<% if (includeHBS) { %>,
+            handlebars: {
+                files: ["<%%= yeoman.app %>/scripts/templates/*.hbs"],
+                tasks: ["livereload"]
+            }<% } %>
         },
         connect: {
             options: {
@@ -99,13 +103,13 @@ module.exports = function (grunt) {
                 files: [{
                     dot: true,
                     src: [
-                        '.tmp',
+                        '<%%= yeoman.tmp %>/*',
                         '<%%= yeoman.dist %>/*',
                         '!<%%= yeoman.dist %>/.git*'
                     ]
                 }]
             },
-            server: '.tmp'
+            server: '<%%= yeoman.tmp %>'
         },
         jshint: {
             options: {
@@ -139,7 +143,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: '<%%= yeoman.app %>/scripts',
                     src: '{,*/}*.coffee',
-                    dest: '.tmp/scripts',
+                    dest: '<%%= yeoman.tmp %>/scripts',
                     ext: '.js'
                 }]
             },
@@ -148,7 +152,7 @@ module.exports = function (grunt) {
                     expand: true,
                     cwd: 'test/spec',
                     src: '{,*/}*.coffee',
-                    dest: '.tmp/spec',
+                    dest: '<%%= yeoman.tmp %>/spec',
                     ext: '.js'
                 }]
             }
@@ -183,7 +187,7 @@ module.exports = function (grunt) {
                 // Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
                 options: {
                     // `name` and `out` is set by grunt-usemin
-                    baseUrl: yeomanConfig.app + '/scripts',
+                    baseUrl: yeomanConfig.tmp + '/scripts',
                     optimize: 'none',
                     // TODO: Figure out how to make sourcemaps work with grunt-usemin
                     // https://github.com/yeoman/grunt-usemin/issues/30
@@ -295,12 +299,30 @@ module.exports = function (grunt) {
                     ]
                 }, {
                     expand: true,
-                    cwd: '.tmp/images',
+                    cwd: '<%%= yeoman.tmp %>/images',
                     dest: '<%%= yeoman.dist %>/images',
                     src: [
                         'generated/*'
                     ]
                 }]
+            },
+            js: {
+                files: [{
+                    expand: true,
+                    dot: true,
+                    cwd: '<%%= yeoman.app %>',
+                    dest: '<%%= yeoman.tmp %>',
+                    src: ["scripts/**]
+                }]
+            }
+        },
+        symlink: {
+            js: {
+                dest: '<%%= yeoman.tmp %>/bower_components',
+                relativeSrc: '../app/bower_components',
+                options: {
+                    type: 'dir'
+                }
             }
         },
         concurrent: {
@@ -329,7 +351,6 @@ module.exports = function (grunt) {
             }
         }<% } %>
     });
-
     grunt.registerTask('server', function (target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
@@ -343,7 +364,6 @@ module.exports = function (grunt) {
             'watch'
         ]);
     });
-
     grunt.registerTask('test', [
         'clean:server',
         'concurrent:test',
@@ -351,11 +371,11 @@ module.exports = function (grunt) {
         'mocha'<% } else if (testFramework === 'jasmine') { %>
         'jasmine'<% } %>
     ]);
-
     grunt.registerTask('build', [
         'clean:dist',
         'useminPrepare',
-        'concurrent:dist',<% if (includeRequireJS) { %>
+        'concurrent:dist',
+        "symlink",<% if (includeRequireJS) { %>
         'requirejs',<% } %>
         'cssmin',
         'concat',
@@ -371,3 +391,4 @@ module.exports = function (grunt) {
         'build'
     ]);
 };
+

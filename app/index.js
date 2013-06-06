@@ -51,23 +51,34 @@ AppGenerator.prototype.askFor = function askFor() {
   console.log('Out of the box I include HTML5 Boilerplate, jQuery and Modernizr.');
 
   var prompts = [{
-    type: 'confirm',
     name: 'compassBootstrap',
     message: 'Would you like to include Twitter Bootstrap for Sass?',
-    default: true
+    default: true,
+    warning: 'Yes: All Twitter Bootstrap files will be placed into the styles directory.'
   },
   {
-    type: 'confirm',
     name: 'includeRequireJS',
     message: 'Would you like to include RequireJS (for AMD support)?',
-    default: true
+    default: true,
+    warning: 'Yes: RequireJS will be placed into the JavaScript vendor directory.'
+  },
+  {
+    name: 'includeHBS',
+    message: 'Would you like to include HBS (Handlebars for requireJS plugin)?',
+    default: true,
+    warning: 'Yes: use hbs!template/blabla to use as Handlebar template.'
   }];
 
-  this.prompt(prompts, function (props) {
+  this.prompt(prompts, function (err, props) {
+    if (err) {
+      return this.emit('error', err);
+    }
+
     // manually deal with the response, get back and store the results.
     // we change a bit this way of doing to automatically do this in the self.prompt() method.
     this.compassBootstrap = props.compassBootstrap;
     this.includeRequireJS = props.includeRequireJS;
+    this.includeHBS= props.includeHBS;
 
     cb();
   }.bind(this));
@@ -220,9 +231,26 @@ AppGenerator.prototype.requirejs = function requirejs() {
     this.mainJsFile = [
       'require.config({',
       '    paths: {',
+      (this.includeHBS)? '        hbs: \'../bower_components/hbs/hbs\'': '',
+      (this.includeHBS)?'        handlebars: \'../bower_components/hbs/Handlebars\'': '',
+      (this.includeHBS)?'        i18nprecompile: \'../bower_components/hbs/hbs/i18nprecompile\'': '',
+      (this.includeHBS)?'        json2: \'../bower_components/hbs/hbs/json2\'': '',
       '        jquery: \'../bower_components/jquery/jquery\',',
       '        bootstrap: \'vendor/bootstrap\'',
+      '        backbone: \'../bower_components/backbone-amd/backbone\'',
+      '        underscore: \'../bower_components/underscore-amd/underscore\'',
+      '        text: \'../bower_components/requirejs-text/text\'',
       '    },',
+      (this.includeHBS)?'    hbs: {':'',
+      (this.includeHBS)?'        disableI18n: true, //This disables the i18n helper and':'',
+      (this.includeHBS)?'                           //doesn\'t require the json i18n files (e.g. en_us.json)':'',
+      (this.includeHBS)?'                           //(false by default)':'',
+      (this.includeHBS)?'        disableHelpers: false, // When true, won\'t look for and try to automatically load':'',
+      (this.includeHBS)?'                               // helpers (false by default)':'',
+      (this.includeHBS)?'        templateExtension: "hbs", //Set the extension automatically appended to templates':'',
+      (this.includeHBS)?'                                  // (\'hbs\' by default)':'',
+      (this.includeHBS)?'        compileOptions: {} //options object which is passed to Handlebars compiler':'',
+      (this.includeHBS)?'    },':'',
       '    shim: {',
       '        bootstrap: {',
       '            deps: [\'jquery\'],',
