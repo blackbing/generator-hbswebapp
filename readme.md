@@ -9,8 +9,7 @@ it is forked from [yeomap/generator-webapp](https://github.com/yeoman/generator-
 
 # Usage
 
-    git clone git@github.com:blackbing/generator-hbswebapp.git
-    npm link
+    npm install generator-hbswebapp
     cd {Your Project}
     yo hbswebapp
 
