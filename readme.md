@@ -1,6 +1,6 @@
 #hbswebapp
 
-it is forked from [yeomap/generator-webapp](https://github.com/yeoman/generator-webapp) which is a fasttest generator to generate a website.
+it is forked from [yeomap/generator-webapp](https://github.com/yeoman/generator-webapp) which is a fastest generator to generate a website.
 
 * [hbs plugin](https://github.com/SlexAxton/require-handlebars-plugin)
 * [backbone](https://github.com/documentcloud/backbone)
