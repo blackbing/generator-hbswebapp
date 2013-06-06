@@ -312,7 +312,7 @@ module.exports = function (grunt) {
                     dot: true,
                     cwd: '<%%= yeoman.app %>',
                     dest: '<%%= yeoman.tmp %>',
-                    src: ["scripts/**]
+                    src: ["scripts/**"]
                 }]
             }
         },
