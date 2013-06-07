@@ -11,10 +11,10 @@ mountFolder = (connect, dir) ->
 # use this if you want to recursively match all subfolders:
 # 'test/spec/**/*.js'
 module.exports = (grunt) ->
-  
+
   # load all grunt tasks
   require("matchdep").filterDev("grunt-*").forEach grunt.loadNpmTasks
-  
+
   # configurable paths
   yeomanConfig =
     app: "app"
@@ -47,7 +47,7 @@ module.exports = (grunt) ->
     connect:
       options:
         port: 9000
-        
+
         # change this to '0.0.0.0' to access the server from outside
         hostname: "localhost"
 
@@ -128,7 +128,7 @@ module.exports = (grunt) ->
         options:
           debugInfo: true
 
-    
+
     # not used since Uglify task does concat,
     # but still available if needed
     #concat: {
@@ -136,14 +136,14 @@ module.exports = (grunt) ->
     #        },
     requirejs:
       dist:
-        
+
         # Options: https://github.com/jrburke/r.js/blob/master/build/example.build.js
         options:
-          
+
           # `name` and `out` is set by grunt-usemin
           baseUrl: yeomanConfig.tmp + "/scripts"
           optimize: "none"
-          
+
           # TODO: Figure out how to make sourcemaps work with grunt-usemin
           # https://github.com/yeoman/grunt-usemin/issues/30
           #generateSourceMaps: true,
@@ -153,7 +153,7 @@ module.exports = (grunt) ->
           useStrict: true
           wrap: true
 
-    
+
     #uglify2: {} // https://github.com/mishoo/UglifyJS2
     rev:
       dist:
@@ -199,7 +199,7 @@ module.exports = (grunt) ->
     htmlmin:
       dist:
         options: {}
-        
+
         #removeCommentsFromCDATA: true,
         #                    // https://github.com/yeoman/grunt-usemin/issues/44
         #                    //collapseWhitespace: true,
@@ -216,7 +216,7 @@ module.exports = (grunt) ->
           dest: "<%= yeoman.dist %>"
         ]
 
-    
+
     # Put files not handled in other tasks here
     copy:
       dist:
@@ -267,5 +267,5 @@ module.exports = (grunt) ->
     grunt.task.run ["clean:server", "concurrent:server", "livereload-start", "connect:livereload", "open", "watch"]
 
   grunt.registerTask "test", ["clean:server", "concurrent:test", "connect:test", "mocha"]
-  grunt.registerTask "build", ["clean:dist", "useminPrepare", "concurrent:dist", "symlink", "requirejs", "cssmin", "concat", "uglify", "copy", "rev", "usemin"]
+  grunt.registerTask "build", ["clean:dist", "useminPrepare", "concurrent:dist", "symlink", "copy:js", "requirejs", "cssmin", "concat", "uglify", "copy:dist", "rev", "usemin"]
   grunt.registerTask "default", ["jshint", "test", "build"]
