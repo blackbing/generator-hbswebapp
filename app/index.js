@@ -209,7 +209,11 @@ AppGenerator.prototype.writeIndex = function writeIndex() {
   ]);
 
   // append the default content
-  this.indexFile = this.indexFile.replace('<body>', '<body>\n' + contentText.join('\n'));
+  if( this.includeHBS)
+    this.write('app/scripts/templates/app.hbs', contentText.join('\n'));
+  else
+    this.indexFile = this.indexFile.replace('<body>', '<body>\n' + contentText.join('\n'));
+
 };
 
 // TODO(mklabs): to be put in a subgenerator like rjs:app
@@ -222,8 +226,10 @@ AppGenerator.prototype.requirejs = function requirejs() {
     // add a basic amd module
     this.write('app/scripts/app.coffee', [
       '#global define',
-      'define ()-> ',
+      'define (require)->',
       '    \'use strict\'\n',
+      (this.includeHBS)?'    tpl = require \'hbs!templates/app\'':'',
+      (this.includeHBS)?'    $(\'body\').append(tpl())':'',
       '    return \'\\\'Allo \\\'Allo!\'',
       ''
     ].join('\n'));
