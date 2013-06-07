@@ -8,15 +8,17 @@
     "app",
     "front-end",
     "h5bp",
-    "modernizr"
+    "modernizr",
+    "handlebar",
+    "hbs"
   ],
-  "homepage": "https://github.com/yeoman/generator-webapp",
+  "homepage": "https://github.com/blackbing/generator-hbswebapp",
   "bugs": "https://github.com/yeoman/generator-webapp/issues",
   "author": "Chrome Developer Relations",
   "main": "app/index.js",
   "repository": {
     "type": "git",
-    "url": "git://github.com/yeoman/generator-webapp.git"
+    "url": "git@github.com:blackbing/generator-hbswebapp.git"
   },
   "scripts": {
     "test": "mocha --reporter spec"
