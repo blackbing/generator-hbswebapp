@@ -24,9 +24,6 @@ module.exports = function (grunt) {
     grunt.initConfig({
         yeoman: yeomanConfig,
         watch: {
-            options: {
-                nospawn: true
-            },
             coffee: {
                 files: ['<%%= yeoman.app %>/scripts/{,*/}*.coffee'],
                 tasks: ['coffee:dist']
@@ -348,6 +345,7 @@ module.exports = function (grunt) {
             }
         }<% } %>
     });
+    grunt.renameTask("regarde", "watch");
     grunt.registerTask('server', function (target) {
         if (target === 'dist') {
             return grunt.task.run(['build', 'open', 'connect:dist:keepalive']);
