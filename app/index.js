@@ -67,6 +67,16 @@ AppGenerator.prototype.askFor = function askFor() {
     message: 'Would you like to include HBS (Handlebars for requireJS plugin)?',
     default: true,
     warning: 'Yes: use hbs!template/blabla to use as Handlebar template.'
+  },
+  {
+    name: 'includeBackboneJS',
+    message: 'Would you like to include Backbone.js?',
+    default: true
+  },
+  {
+    name: 'includeUnderscore',
+    message: 'Would you like to include underscore.js?',
+    default: true
   }];
 
   this.prompt(prompts, function (err, props) {
@@ -79,13 +89,15 @@ AppGenerator.prototype.askFor = function askFor() {
     this.compassBootstrap = props.compassBootstrap;
     this.includeRequireJS = props.includeRequireJS;
     this.includeHBS= props.includeHBS;
+    this.includeBackboneJS= props.includeBackboneJS;
+    this.includeUnderscore = props.includeUnderscore;
 
     cb();
   }.bind(this));
 };
 
 AppGenerator.prototype.gruntfile = function gruntfile() {
-  this.template('Gruntfile.js');
+  this.copy('Gruntfile.coffee', 'Gruntfile.coffee');
 };
 
 AppGenerator.prototype.packageJSON = function packageJSON() {
@@ -197,6 +209,12 @@ AppGenerator.prototype.writeIndex = function writeIndex() {
   if (this.includeHBS) {
     defaults.push('hbs (require-handlebars-plugin)');
   }
+  if (this.includeBackboneJS) {
+    defaults.push('Backbone');
+  }
+  if (this.includeUnderscore) {
+    defaults.push('underscore.js');
+  }
   // iterate over defaults and create content string
   defaults.forEach(function (el) {
     contentText.push('                    <li>' + el  +'</li>');
@@ -246,8 +264,8 @@ AppGenerator.prototype.requirejs = function requirejs() {
       (this.includeHBS)?'        json2: \'../bower_components/hbs/hbs/json2\'': '',
       '        jquery: \'../bower_components/jquery/jquery\'',
       '        bootstrap: \'vendor/bootstrap\'',
-      '        backbone: \'../bower_components/backbone-amd/backbone\'',
-      '        underscore: \'../bower_components/underscore-amd/underscore\'',
+      (this.includeBackboneJS)?'        backbone: \'../bower_components/backbone-amd/backbone\'':'',
+      (this.includeUnderscore)?'        underscore: \'../bower_components/underscore-amd/underscore\'':'',
       '        text: \'../bower_components/requirejs-text/text\'',
       '    ',
       (this.includeHBS)?'    hbs:':'',
