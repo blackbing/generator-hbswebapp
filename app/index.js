@@ -194,6 +194,9 @@ AppGenerator.prototype.writeIndex = function writeIndex() {
     this.mainJsFile = 'console.log(\'\\\'Allo \\\'Allo!\');';
   }
 
+  if (this.includeHBS) {
+    defaults.push('hbs (require-handlebars-plugin)');
+  }
   // iterate over defaults and create content string
   defaults.forEach(function (el) {
     contentText.push('                    <li>' + el  +'</li>');
