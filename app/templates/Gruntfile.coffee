@@ -25,11 +25,11 @@ module.exports = (grunt) ->
     yeoman: yeomanConfig
     watch:
       coffee:
-        files: ["<%= yeoman.app %>/scripts/{,*/}*.coffee"]
+        files: ["<%= yeoman.app %>/scripts/**/*.coffee"]
         tasks: ["coffee:dist"]
 
       coffeeTest:
-        files: ["test/spec/{,*/}*.coffee"]
+        files: ["test/spec/**/*.coffee"]
         tasks: ["coffee:test"]
 
       compass:
@@ -96,7 +96,7 @@ module.exports = (grunt) ->
         files: [
           expand: true
           cwd: "<%= yeoman.app %>/scripts"
-          src: "{,*/}*.coffee"
+          src: "**/*.coffee"
           dest: "<%= yeoman.tmp %>/scripts"
           ext: ".js"
         ]
@@ -105,7 +105,7 @@ module.exports = (grunt) ->
         files: [
           expand: true
           cwd: "test/spec"
-          src: "{,*/}*.coffee"
+          src: "**/*.coffee"
           dest: "<%= yeoman.tmp %>/spec"
           ext: ".js"
         ]
