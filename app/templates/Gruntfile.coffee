@@ -152,6 +152,11 @@ module.exports = (grunt) ->
           preserveLicenseComments: false
           useStrict: true
           wrap: true
+          pragmasOnSave:
+            excludeHbsParser: true
+            excludeHbs: true
+            excludeAfterBuild: true
+
 
 
     #uglify2: {} // https://github.com/mishoo/UglifyJS2
